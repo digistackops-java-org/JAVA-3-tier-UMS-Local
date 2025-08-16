@@ -1,74 +1,96 @@
-## Launch EC2 "t2.micro" Instance and In Sg, Open port "5000" for Python Application 
-# Backend-Python Application server
+## Launch EC2 "t2.micro" Instance and In Sg, Open port "8080" for Python Application 
+# Backend-JAVA Application server
 
-## Install python
+####  Install GIT
 ```
-sudo yum update -y
 sudo yum install git -y
-sudo yum install python3 -y
-sudo yum install python3-pip -y
+``` 
+
+## Install JAVA
+####  Installation of openJDK 17
 ```
+sudo dnf update -y
+sudo yum install java-17-amazon-corretto-devel -y
+``` 
+
+## Install Maven
+```
+sudo wget https://dlcdn.apache.org/maven/maven-3/3.9.11/binaries/apache-maven-3.9.11-bin.tar.gz
+sudo tar xzf apache-maven-3.9.11-bin.tar.gz -C /opt
+sudo ln -s apache-maven-3.9.11 /opt/maven
+```
+#### Create Profile for Maven  
+```
+sudo vi /etc/profile.d/maven.sh
+```
+
+```
+export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
+```
+#### Reload profile
+```
+sudo chmod +x /etc/profile.d/maven.sh
+source /etc/profile.d/maven.sh
+mvn -version
+```
+
+
+
+
 
 ## Get the Code
 
 ```
-git clone https://github.com/techizone-Medium-Project-org/Python-3-tier-UMS-App.git
-sudo chown -R ec2-user:ec2-user /home/ec2-user/Python-3-tier-UMS-App
-cd Python-3-tier-UMS-App
+git clone https://github.com/techizone-Medium-Project-org/JAVA-3-tier-UMS-App.git
+cd JAVA-3-tier-UMS-App
+sudo chown -R ec2-user:ec2-user /home/ec2-user/JAVA-3-tier-UMS-App
 ```
 Switch branch
 
 ```
-git checkout 02-Local-setup-Prod
+git checkout 01-Local-setup-Dev
 ```
 # Backend Setup
 ```
 cd backend
 ```
-Create connection file ".env" for DB connection
-Dont push ".env" to your SCM for security 
-```
-sudo vim .env
-```
-```
-MONGO_USER=appuser
-MONGO_PASS=Pa55Word
-MONGO_HOST=your_db_private_ip
-MONGO_DB=user-account
-```
-Install Dependencies
-```
-pip install -r requirements.txt
-```
-Start Backend Application
-```
-pip install gunicorn
-```
-To run these Backend Application up and Running we use Linux service
-```
-which gunicorn
-sudo cp -r  ~/.local/bin/gunicorn /usr/local/bin/
-```
+Create connection for DB connection using "exports" command from HEER it pass to "application.properties" file
 
+```
+export SERVER_PORT=8080
+export DB_HOST=<DB-Private-IP>
+export DB_PORT=5432
+export DB_NAME="user-account"
+export DB_USER=appuser
+export DB_PASSWORD=P@55Word
+export CORS_ALLOWED_ORIGINS=http://<Frontend-Private-IP>
+```
+Create the Package
+```
+mvn clean package
+```
+Start Backend Application, for HA we use Linux service for Backend
 ```
 sudo vim /etc/systemd/system/backend.service
 ```
 ```
 [Unit]
-Description=Gunicorn Flask App
+Description=Student Spring Boot App
 After=network.target
 
 [Service]
 User=ec2-user
-Group=ec2-user
-WorkingDirectory=/home/ec2-user/My-python-EMS/backend
-ExecStart=/usr/local/bin/gunicorn --bind 0.0.0.0:5000 app:app
+WorkingDirectory=/home/ec2-user/JAVA-3-tier-UMS-App/backend
+ExecStart=/usr/bin/java -jar /home/ec2-user/JAVA-3-tier-UMS-App/backend/target/studentapp-0.0.1-SNAPSHOT.jar
+SuccessExitStatus=143
 Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
 ```
-Enable backend service
+Enable the backens servive
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable backend
