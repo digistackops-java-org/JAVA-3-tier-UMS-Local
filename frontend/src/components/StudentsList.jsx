@@ -1,5 +1,8 @@
+// src/components/StudentsList.jsx
+
 import React, { useEffect, useState } from 'react';
 import api from '../api';
+import { theme } from '../styles/theme.js';
 
 function Row({ student, onUpdated, onDeleted }) {
   const [edit, setEdit] = useState(false);
@@ -22,38 +25,89 @@ function Row({ student, onUpdated, onDeleted }) {
     onDeleted();
   };
 
-  if (edit) return (
-    <tr>
-      <td><input name="name" value={form.name} onChange={onChange} /></td>
-      <td><input name="email" value={form.email} onChange={onChange} /></td>
-      <td><input name="course" value={form.course} onChange={onChange} /></td>
-      <td><input name="amount" type="number" step="0.01" value={form.amount} onChange={onChange} /></td>
-      <td>
-        <select name="feesStatus" value={form.feesStatus} onChange={onChange}>
-          <option>Paid</option>
-          <option>Unpaid</option>
-          <option>Half-paid</option>
+  const rowStyle = {
+    backgroundColor: theme.colors.background,
+    borderRadius: theme.borderRadius,
+    boxShadow: theme.shadows.neumorphic,
+    padding: theme.spacing.large,
+    display: 'grid',
+    gridTemplateColumns: 'repeat(6, 1fr)',
+    gap: theme.spacing.medium,
+    alignItems: 'center',
+    transition: theme.transition,
+    // Add hover effects in a CSS stylesheet for full functionality
+  };
+
+  const labelStyle = {
+    fontWeight: '600',
+    color: theme.colors.primary,
+    marginBottom: theme.spacing.small,
+  };
+  
+  const contentStyle = {
+    fontSize: theme.typography.fontSize.base,
+    color: theme.colors.text,
+  };
+
+  const buttonStyle = {
+    padding: '8px 12px',
+    borderRadius: '10px',
+    border: 'none',
+    cursor: 'pointer',
+    transition: theme.transition,
+    fontSize: '14px',
+    fontWeight: '600',
+    boxShadow: theme.shadows.neumorphic,
+  };
+
+  const editButtonStyle = { ...buttonStyle, backgroundColor: theme.colors.primary, color: 'white' };
+  const deleteButtonStyle = { ...buttonStyle, backgroundColor: theme.colors.error, color: 'white' };
+
+  if (edit) {
+    return (
+      <div style={{ ...rowStyle, backgroundColor: theme.colors.surface, boxShadow: theme.shadows.onHover }}>
+        <input name="name" value={form.name} onChange={onChange} style={inputStyle} />
+        <input name="email" value={form.email} onChange={onChange} style={inputStyle} />
+        <input name="course" value={form.course} onChange={onChange} style={inputStyle} />
+        <input name="amount" type="number" step="0.01" value={form.amount} onChange={onChange} style={inputStyle} />
+        <select name="feesStatus" value={form.feesStatus} onChange={onChange} style={inputStyle}>
+          <option>Paid</option><option>Unpaid</option><option>Half-paid</option>
         </select>
-      </td>
-      <td>
-        <button onClick={save}>Save</button>
-        <button onClick={() => setEdit(false)}>Cancel</button>
-      </td>
-    </tr>
-  );
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button onClick={save} style={{ ...editButtonStyle, backgroundColor: theme.colors.accent }}>Save</button>
+          <button onClick={() => setEdit(false)} style={deleteButtonStyle}>Cancel</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <tr>
-      <td>{student.name}</td>
-      <td>{student.email}</td>
-      <td>{student.course}</td>
-      <td>{student.amount}</td>
-      <td>{student.feesStatus}</td>
-      <td>
-        <button onClick={() => setEdit(true)}>Edit</button>
-        <button onClick={del}>Delete</button>
-      </td>
-    </tr>
+    <div style={rowStyle}>
+      <div>
+        <div style={labelStyle}>Name</div>
+        <div style={contentStyle}>{student.name}</div>
+      </div>
+      <div>
+        <div style={labelStyle}>Email</div>
+        <div style={contentStyle}>{student.email}</div>
+      </div>
+      <div>
+        <div style={labelStyle}>Course</div>
+        <div style={contentStyle}>{student.course}</div>
+      </div>
+      <div>
+        <div style={labelStyle}>Amount</div>
+        <div style={contentStyle}>{student.amount}</div>
+      </div>
+      <div>
+        <div style={labelStyle}>Status</div>
+        <div style={contentStyle}>{student.feesStatus}</div>
+      </div>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <button onClick={() => setEdit(true)} style={editButtonStyle}>Edit</button>
+        <button onClick={del} style={deleteButtonStyle}>Delete</button>
+      </div>
+    </div>
   );
 }
 
@@ -76,21 +130,14 @@ export default function StudentsList() {
 
   useEffect(() => { load(); }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div style={{ color: 'red' }}>{error}</div>;
+  if (loading) return <div style={{ textAlign: 'center', marginTop: theme.spacing.xlarge, color: theme.colors.primary }}>Loading...</div>;
+  if (error) return <div style={{ color: theme.colors.error, textAlign: 'center', marginTop: theme.spacing.xlarge }}>{error}</div>;
 
   return (
-    <table border="1" cellPadding="6" cellSpacing="0">
-      <thead>
-        <tr>
-          <th>Name</th><th>Email</th><th>Course</th><th>Amount</th><th>Fees Status</th><th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {students.map(s => (
-          <Row key={s.id} student={s} onUpdated={load} onDeleted={load} />
-        ))}
-      </tbody>
-    </table>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: theme.spacing.medium, maxWidth: '1200px', margin: '0 auto', animation: 'fadeIn 0.8s ease-out' }}>
+      {students.map(s => (
+        <Row key={s.id} student={s} onUpdated={load} onDeleted={load} />
+      ))}
+    </div>
   );
 }
