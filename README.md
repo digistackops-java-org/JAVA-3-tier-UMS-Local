@@ -68,6 +68,11 @@ Check table created or Not under "users"
 ```
 SELECT * FROM users;
 ```
+Exit from DB
+```
+\q
+exit
+```
 
 ## Get the Code
 
@@ -112,6 +117,7 @@ Note => Nginx we we for 2 purpose
 Setup "nginx.conf" for reverse Proxy to backend, we already have "nginx.conf" file 
 
 ```
+cd /home/ec2-user/JAVA-3-tier-UMS-App/frontend
 sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 sudo mv /home/ec2-user/JAVA-3-tier-UMS-App/frontend/nginx.conf /etc/nginx/
 ```
@@ -126,7 +132,6 @@ sudo systemctl restart nginx
 
 Install Dependencies
 ```
-cd frontend
 npm install
 ```
 Build the Frontend 
