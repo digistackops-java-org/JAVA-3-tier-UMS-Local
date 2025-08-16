@@ -97,6 +97,9 @@ mvn -version
 # Frontend-React Web server
 ### Install Node.js
 ```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+. ~/.nvm/nvm.sh
+nvm install 16
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 nvm install --lts
 nvm use --lts
