@@ -1,8 +1,6 @@
-// src/components/AddStudentForm.jsx
-
 import React, { useState } from 'react';
 import api from '../api';
-import { theme } from '../styles/theme.js';
+import { theme } from '../styles/theme.js'; // Import the theme
 
 const initialForm = { name: '', email: '', course: '', amount: '', feesStatus: 'Paid' };
 
@@ -36,57 +34,64 @@ export default function AddStudentForm({ onDone }) {
   };
 
   const formContainerStyle = {
-    maxWidth: 500,
+    display: 'grid',
+    gap: theme.spacing.medium,
+    maxWidth: 420,
     margin: '0 auto',
     padding: theme.spacing.xlarge,
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.card,
     borderRadius: theme.borderRadius,
-    boxShadow: theme.shadows.neumorphic,
+    boxShadow: theme.shadows.large,
+    animation: 'fadeIn 0.5s ease-in-out',
   };
 
   const inputStyle = {
     width: '100%',
-    padding: '12px',
+    padding: theme.spacing.medium,
     border: `1px solid ${theme.colors.border}`,
-    backgroundColor: theme.colors.surface,
-    borderRadius: '10px',
-    boxShadow: theme.shadows.neumorphicInset,
-    transition: theme.transition,
-    color: theme.colors.text,
+    borderRadius: theme.borderRadius,
+    boxSizing: 'border-box',
   };
 
   const submitButtonStyle = {
-    padding: '20px 40px',
+    padding: '12px 24px',
     borderRadius: theme.borderRadius,
     border: 'none',
     fontSize: theme.typography.fontSize.base,
     fontWeight: '600',
     cursor: 'pointer',
     backgroundColor: theme.colors.primary,
-    color: 'white',
-    boxShadow: theme.shadows.neumorphic,
-    transition: theme.transition,
+    color: '#fff',
+    transition: 'background-color 0.3s ease',
   };
+
+  const messageStyle = (color) => ({
+    marginTop: theme.spacing.small,
+    padding: theme.spacing.medium,
+    borderRadius: theme.borderRadius,
+    color: '#fff',
+    backgroundColor: color,
+    textAlign: 'center',
+  });
 
   return (
     <form onSubmit={onSubmit} style={formContainerStyle}>
-      <h2 style={{ fontSize: theme.typography.fontSize.h2, textAlign: 'center', marginBottom: theme.spacing.large, color: theme.colors.primary }}>Add New Student</h2>
-      <div style={{ display: 'grid', gap: theme.spacing.large }}>
-        <input name="name" value={form.name} onChange={onChange} required placeholder="Name" style={inputStyle} />
-        <input name="email" type="email" value={form.email} onChange={onChange} required placeholder="Email" style={inputStyle} />
-        <input name="course" value={form.course} onChange={onChange} required placeholder="Course" style={inputStyle} />
-        <input name="amount" type="number" step="0.01" value={form.amount} onChange={onChange} required placeholder="Amount" style={inputStyle} />
+      <label>Name<input name="name" value={form.name} onChange={onChange} required style={inputStyle} /></label>
+      <label>Email<input name="email" type="email" value={form.email} onChange={onChange} required style={inputStyle} /></label>
+      <label>Course<input name="course" value={form.course} onChange={onChange} required style={inputStyle} /></label>
+      <label>Amount<input name="amount" type="number" step="0.01" value={form.amount} onChange={onChange} required style={inputStyle} /></label>
+      <label>Fees Status
         <select name="feesStatus" value={form.feesStatus} onChange={onChange} style={inputStyle}>
           <option>Paid</option>
           <option>Unpaid</option>
           <option>Half-paid</option>
         </select>
-        <button type="submit" disabled={loading} style={submitButtonStyle}>
-          {loading ? 'Saving...' : 'Save'}
-        </button>
-      </div>
-      {error && <div style={{ color: theme.colors.error, textAlign: 'center', marginTop: theme.spacing.medium }}>{error}</div>}
-      {success && <div style={{ color: theme.colors.accent, textAlign: 'center', marginTop: theme.spacing.medium }}>{success}</div>}
+      </label>
+      <button type="submit" disabled={loading} style={submitButtonStyle}>
+        {loading ? 'Saving...' : 'Save'}
+      </button>
+      {error && <div style={messageStyle(theme.colors.error)}>{error}</div>}
+      {success && <div style={messageStyle(theme.colors.success)}>{success}</div>}
     </form>
   );
 }
