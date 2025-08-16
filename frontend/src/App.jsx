@@ -36,7 +36,7 @@ export default function App() {
 
   return (
     <div style={containerStyle}>
-      <h1 style={headerStyle}>Student App</h1>
+      <h1 style={headerStyle}>SapSecOps Student App</h1>
       {view === 'home' ? (
         <div style={{ display: 'flex', gap: theme.spacing.medium, justifyContent: 'center' }}>
           <button style={primaryBtn} onClick={() => setView('add')}>Add Student</button>
