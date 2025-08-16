@@ -92,13 +92,16 @@ export PATH=${M2_HOME}/bin:${PATH}
 sudo chmod +x /etc/profile.d/maven.sh
 source /etc/profile.d/maven.sh
 mvn -version
+```
 
+# Frontend-React Web server
 ### Install Node.js
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 nvm install --lts
 nvm use --lts
 ```
+
 ### Install Nginx
 
 Install nginx
