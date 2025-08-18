@@ -110,20 +110,9 @@ Start Backend Application
 java -jar target/studentapp-0.0.1-SNAPSHOT.jar
 ```
 # Frontend Setup
-Note => Nginx we we for 2 purpose 
-        (1) For Frontend Load Balancing 
-        (2) For Backend Reverse Proxy
-
-Setup "nginx.conf" for reverse Proxy to backend, we already have "nginx.conf" file 
-
+Setup Backend Connection
 ```
-cd /home/ec2-user/JAVA-3-tier-UMS-App/frontend
-sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
-sudo mv /home/ec2-user/JAVA-3-tier-UMS-App/frontend/nginx.conf /etc/nginx/
-```
-Edit your the Backend IP Address in nginx.conf
-```
-sudo vim /etc/nginx/nginx.conf
+sudo vim src/config.js
 ```
 restart your Nginx
 ```
