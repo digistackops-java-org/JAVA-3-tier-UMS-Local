@@ -110,13 +110,12 @@ Start Backend Application
 java -jar target/studentapp-0.0.1-SNAPSHOT.jar
 ```
 # Frontend Setup
-Setup Backend Connection
+Setup Backend Connection => add your Backend Public IP
+```
+cd frontend
+```
 ```
 sudo vim src/config.js
-```
-restart your Nginx
-```
-sudo systemctl restart nginx
 ```
 
 Install Dependencies
@@ -127,6 +126,7 @@ Build the Frontend
 ```
 npm run build
 ```
+
 Copy build/ to /var/www/html or Nginx root
 ```
 sudo rm -rf /var/www/frontend/*
