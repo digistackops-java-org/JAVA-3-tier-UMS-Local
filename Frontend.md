@@ -49,6 +49,8 @@ when we hit our Application using frontend URL it connect to Backend using we me
 For that we use "Reverse Proxy" concept in Frontend 
 HERE we mention our Backend-Private-IP in reverse Proxy configuration => so that when request came to frontend then it will redirect to Backend Internally through reverse proxy using Private-IP only
 
+Note ==> we already setup the Reverse Proxy using Nginx alredy setup "nginx.conf" no need to do anything
+
 ### Setup "nginx.conf" for reverse Proxy to backend, we already have "nginx.conf" file 
 
 ```
