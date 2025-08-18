@@ -42,7 +42,14 @@ Note => Nginx we we for 2 purpose
         (1) For Frontend Load Balancing 
         (2) For Backend Reverse Proxy
 
-Setup "nginx.conf" for reverse Proxy to backend, we already have "nginx.conf" file 
+when we hit our Application using frontend URL it connect to Backend using we mentioned URL in the same Browser
+--> As of now we pass "Backend-Public-IP" => so Browser our App from frontend it will connect to our Backend using Public IP {because from Browser public-Ip is accessable}, but it is a security Breach or Not accesptable in Production
+--> if we pass the Backend Private-IP {Private-IP not allowed to access from Browser, private -Ip are for internal communication}, But pasing Backend Private-IP is the good practice
+
+For that we use "Reverse Proxy" concept in Frontend 
+HERE we mention our Backend-Private-IP in reverse Proxy configuration => so that when request came to frontend then it will redirect to Backend Internally through reverse proxy using Private-IP only
+
+### Setup "nginx.conf" for reverse Proxy to backend, we already have "nginx.conf" file 
 
 ```
 cd /home/ec2-user/JAVA-3-tier-UMS-App/frontend
