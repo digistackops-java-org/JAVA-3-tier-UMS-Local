@@ -1,6 +1,20 @@
 ## Launch EC2 "t2.micro" Instance and In Sg, Open port "8080" for Python Application 
 # Backend-JAVA Application server
 
+## Setup your Application Database by executing "initdb.sql" script from Application-server
+
+Step:1 ==> install "MYSQL-Client" for communicate with MYSQL Database
+```
+sudo dnf update -y
+sudo dnf install -y postgresql16-client
+which postgresql-setup
+```
+Step:2 ==> Execute your "init.sql" script for your Application DB setup
+
+```
+psql -h <DB-Private-IP> -U postgres -P <Password> -f initdb.sql
+```
+
 ####  Install GIT
 ```
 sudo yum install git -y
