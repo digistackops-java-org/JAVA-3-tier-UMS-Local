@@ -1,4 +1,4 @@
-## Launch EC2 "t2.micro" Instance and In Sg, Open port "5432" for MongoDB
+## Launch EC2 "t2.micro" Instance and In Sg, Open port "5432" for postgresql
 # DB Tier
 
 ## Install postgressql  DB
