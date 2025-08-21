@@ -22,3 +22,11 @@ CREATE TABLE IF NOT EXISTS users (
 GRANT SELECT, INSERT, UPDATE, DELETE ON users TO appuser;
 GRANT USAGE ON SCHEMA public TO appuser;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO appuser;
+
+-- Insert dummy Data
+INSERT INTO users (amount, course, email, fees_status, name) VALUES
+(5000.00, 'DevOps', 'venkatesh@example.com', 'Paid', 'Venkatesh'),
+(4800.00, 'Java', 'chaitanya@example.com', 'Unpaid', 'Chaitanya'),
+(5200.00, 'Python', 'padol@example.com', 'paid', 'Padol'),
+(4500.00, 'Testing', 'ganesh@example.com', 'UnPaid', 'Ganesh'),
+(7000.00, 'Management', 'pandu@example.com', 'Unpaid', 'Pandu');
