@@ -13,7 +13,7 @@ Step:2 ==> Execute your "init.sql" script for your Application DB setup
 
 ```
 cd backend
-psql -h <DB-Private-IP> -U postgres -P <Password> -f initdb.sql
+psql -h <DB-Private-IP> -U dbadmin -P Admin@123 -f initdb.sql
 ```
 
 ####  Install GIT
