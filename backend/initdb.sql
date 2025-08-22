@@ -3,7 +3,7 @@ CREATE DATABASE "user-account";
 
 -- Create user (if not exists)
 CREATE USER appuser WITH PASSWORD 'P@55Word';
-GRANT ALL PRIVILEGES ON DATABASE employeedb TO appuser;
+GRANT ALL PRIVILEGES ON DATABASE "user-account" TO appuser;
 
 \c "user-account";
 
@@ -25,8 +25,8 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO appuser;
 INSERT INTO users (amount, course, email, fees_status, name) VALUES
 (5000.00, 'DevOps', 'venkatesh@example.com', 'Paid', 'Venkatesh'),
 (4800.00, 'Java', 'chaitanya@example.com', 'Unpaid', 'Chaitanya'),
-(5200.00, 'Python', 'padol@example.com', 'paid', 'Padol'),
-(4500.00, 'Testing', 'ganesh@example.com', 'UnPaid', 'Ganesh'),
+(5200.00, 'Python', 'padol@example.com', 'Paid', 'Padol'),
+(4500.00, 'Testing', 'ganesh@example.com', 'Unpaid', 'Ganesh'),
 (7000.00, 'Management', 'pandu@example.com', 'Unpaid', 'Pandu');
 
 SELECT * FROM users;
