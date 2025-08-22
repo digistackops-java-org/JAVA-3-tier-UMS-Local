@@ -91,3 +91,29 @@ Grant ability to create new databases and roles (similar to WITH GRANT OPTION)
 ```
 ALTER ROLE dbadmin CREATEDB CREATEROLE SUPERUSER;
 ```
+
+
+# Check table created or Not under "users"
+## Check these after executing "initdb.sql" script from Application server 
+
+Switch to postgres User
+```
+sudo -i -u postgres
+```
+Login to DB promt
+```
+psql
+```
+Switch to "user-account" Database
+```
+\c user-account;
+```
+```
+SELECT * FROM users;
+```
+Exit from DB
+```
+\q
+exit
+```
+
