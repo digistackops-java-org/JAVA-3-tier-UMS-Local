@@ -36,15 +36,12 @@ mvn -version
 ```
 
 
-
-
-
 ## Get the Code
 
 ```
-git clone https://github.com/techizone-Medium-Project-org/JAVA-3-tier-UMS-App.git
-cd JAVA-3-tier-UMS-App
-sudo chown -R ec2-user:ec2-user /home/ec2-user/JAVA-3-tier-UMS-App
+git clone https://github.com/digistackops-java-org/JAVA-3-tier-UMS-Local.git
+cd JAVA-3-tier-UMS-Local
+sudo chown -R ec2-user:ec2-user /home/ec2-user/JAVA-3-tier-UMS-Local
 ```
 Switch branch
 
@@ -57,11 +54,10 @@ cd backend
 ```
 ## Setup your Application Database by executing "initdb.sql" script from Application-server
 
-Step:1 ==> install "MYSQL-Client" for communicate with MYSQL Database
+Step:1 ==> install "POstgresql-Client" for communicate with POstgresql Database
 ```
 sudo dnf update -y
 sudo dnf install -y postgresql16
-which postgresql-setup
 ```
 Step:2 ==> Execute your "init.sql" script for your Application DB setup
 
