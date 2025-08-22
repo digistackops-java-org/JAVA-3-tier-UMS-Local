@@ -91,8 +91,8 @@ After=network.target
 
 [Service]
 User=ec2-user
-WorkingDirectory=/home/ec2-user/JAVA-3-tier-UMS-App/backend
-ExecStart=/usr/bin/java -jar /home/ec2-user/JAVA-3-tier-UMS-App/backend/target/studentapp-0.0.1-SNAPSHOT.jar
+WorkingDirectory=/home/ec2-user/JAVA-3-tier-UMS-Local/backend
+ExecStart=/usr/bin/java -jar /home/ec2-user/JAVA-3-tier-UMS-Local/backend/target/studentapp-0.0.1-SNAPSHOT.jar
 SuccessExitStatus=143
 Restart=always
 RestartSec=5
