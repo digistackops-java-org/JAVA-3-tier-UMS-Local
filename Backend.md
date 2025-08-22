@@ -65,17 +65,6 @@ Step:2 ==> Execute your "init.sql" script for your Application DB setup
 PGPASSWORD="Admin@123" psql -h <DB-Private-IP> -U dbadmin -d postgres -f initdb.sql
 ```
 
-Create connection for DB connection using "exports" command from HEER it pass to "application.properties" file
-
-```
-export SERVER_PORT=8080
-export DB_HOST=<DB-Private-IP>
-export DB_PORT=5432
-export DB_NAME="user-account"
-export DB_USER=appuser
-export DB_PASSWORD=P@55Word
-export CORS_ALLOWED_ORIGINS=http://<Frontend-Private-IP>
-```
 Create the Package
 ```
 mvn clean package
@@ -92,6 +81,16 @@ After=network.target
 [Service]
 User=ec2-user
 WorkingDirectory=/home/ec2-user/JAVA-3-tier-UMS-Local/backend
+
+# Environment variables
+Environment=SERVER_PORT=8080
+Environment=DB_HOST=172.31.27.67
+Environment=DB_PORT=5432
+Environment=DB_NAME=user-account
+Environment=DB_USER=appuser
+Environment=DB_PASSWORD=P@55Word
+Environment=CORS_ALLOWED_ORIGINS=http://172.31.20.17
+
 ExecStart=/usr/bin/java -jar /home/ec2-user/JAVA-3-tier-UMS-Local/backend/target/studentapp-0.0.1-SNAPSHOT.jar
 SuccessExitStatus=143
 Restart=always
@@ -106,4 +105,10 @@ sudo systemctl daemon-reload
 sudo systemctl enable backend
 sudo systemctl start backend
 sudo systemctl status backend
+```
+Why we pass Environmental Variables in "Backend.service" file why noy througj export Command or .env file
+Because our Application is JAVA, it will alredy packaged through maven, so exports and .env will take the Linux Environment variable But HERE we need to pass the Variable to the  MAven PAckage so we use Environment variables in Service file so it will pass to the java -jar while running the Package
+To check the Service Logs
+```
+journalctl -u backend.service
 ```
