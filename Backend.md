@@ -46,7 +46,7 @@ sudo chown -R ec2-user:ec2-user /home/ec2-user/JAVA-3-tier-UMS-Local
 Switch branch
 
 ```
-git checkout 02-Local-setup-Prod
+git checkout 02-Local-setup-Prod-V1
 ```
 # Backend Setup
 ```
@@ -84,12 +84,12 @@ WorkingDirectory=/home/ec2-user/JAVA-3-tier-UMS-Local/backend
 
 # Environment variables
 Environment=SERVER_PORT=8080
-Environment=DB_HOST=172.31.27.67
+Environment=DB_HOST=<DB-Private-IP>
 Environment=DB_PORT=5432
 Environment=DB_NAME=user-account
 Environment=DB_USER=appuser
 Environment=DB_PASSWORD=P@55Word
-Environment=CORS_ALLOWED_ORIGINS=http://172.31.20.17
+Environment=CORS_ALLOWED_ORIGINS=http://<Frontend-IP>
 
 ExecStart=/usr/bin/java -jar /home/ec2-user/JAVA-3-tier-UMS-Local/backend/target/studentapp-0.0.1-SNAPSHOT.jar
 SuccessExitStatus=143
