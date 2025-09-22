@@ -46,7 +46,7 @@ sudo chown -R ec2-user:ec2-user /home/ec2-user/JAVA-3-tier-UMS-Local
 Switch branch
 
 ```
-git checkout 02-Local-setup-Prod-V1
+git checkout 03-Local-setup-Unit_Test-Local-V1
 ```
 # Backend Setup
 ```
