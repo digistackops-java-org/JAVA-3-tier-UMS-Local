@@ -30,14 +30,14 @@ sudo mkdir /app
 
 ```
 cd /app
-git clone https://github.com/digistackops-java-org/JAVA-3-tier-UMS-Local.git
+sudo git clone https://github.com/digistackops-java-org/JAVA-3-tier-UMS-Local.git
 cd JAVA-3-tier-UMS-Local
 sudo chown -R ec2-user:ec2-user /app/JAVA-3-tier-UMS-Local
 ```
 Switch branch
 
 ```
-git checkout 02-Local-setup-Prod-V1
+sudo git checkout 02-Local-setup-Prod-V1
 sudo chown -R $USER:$USER /app/JAVA-3-tier-UMS-Local
 ```
 # Frontend Setup
