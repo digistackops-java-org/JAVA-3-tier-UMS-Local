@@ -37,16 +37,22 @@ mvn -version
 
 
 ## Get the Code
+### We keep application in one standard location. This is a usual practice that runs in the organization. Lets setup an app directory.
+```
+sudo mkdir /app
+```
 
 ```
-git clone https://github.com/digistackops-java-org/JAVA-3-tier-UMS-Local.git
+cd /app
+sudo git clone https://github.com/digistackops-java-org/JAVA-3-tier-UMS-Local.git
 cd JAVA-3-tier-UMS-Local
-sudo chown -R ec2-user:ec2-user /home/ec2-user/JAVA-3-tier-UMS-Local
+sudo chown -R ec2-user:ec2-user /app/JAVA-3-tier-UMS-Local
 ```
 Switch branch
 
 ```
 git checkout 02-Local-setup-Prod-V1
+sudo chown -R $USER:$USER /app/JAVA-3-tier-UMS-Loca
 ```
 # Backend Setup
 ```
@@ -80,7 +86,7 @@ After=network.target
 
 [Service]
 User=ec2-user
-WorkingDirectory=/home/ec2-user/JAVA-3-tier-UMS-Local/backend
+WorkingDirectory=/app/JAVA-3-tier-UMS-Local/backend
 
 # Environment variables
 Environment=SERVER_PORT=8080
@@ -91,7 +97,7 @@ Environment=DB_USER=appuser
 Environment=DB_PASSWORD=P@55Word
 Environment=CORS_ALLOWED_ORIGINS=http://<Frontend-IP>
 
-ExecStart=/usr/bin/java -jar /home/ec2-user/JAVA-3-tier-UMS-Local/backend/target/studentapp-0.0.1-SNAPSHOT.jar
+ExecStart=/usr/bin/java -jar /app/JAVA-3-tier-UMS-Local/backend/target/studentapp-0.0.1-SNAPSHOT.jar
 SuccessExitStatus=143
 Restart=always
 RestartSec=5
