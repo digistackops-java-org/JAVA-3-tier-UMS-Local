@@ -32,7 +32,7 @@ sudo chown -R ec2-user:ec2-user /home/ec2-user/JAVA-3-tier-UMS-Local
 Switch branch
 
 ```
-git checkout 02-Local-setup-Prod
+git checkout 02-Local-setup-Prod-V1
 ```
 # Frontend Setup
 Note => Nginx we we for 2 purpose 
