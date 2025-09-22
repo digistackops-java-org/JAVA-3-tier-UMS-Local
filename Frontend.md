@@ -10,7 +10,7 @@ nvm install 22
 ### Install Nginx
 
 ```
-sudo yum install nginx -y
+sudo yum install nginx git -y
 ```
 Start the Service
 ```
@@ -24,10 +24,15 @@ sudo chmod -R 755 /var/www/frontend/
 ```
 ## Get the Code
 
+### We keep application in one standard location. This is a usual practice that runs in the organization. Lets setup an app directory.
 ```
+sudo mkdir /app
+```
+```
+cd /app
 git clone https://github.com/digistackops-java-org/JAVA-3-tier-UMS-Local.git
 cd JAVA-3-tier-UMS-Local
-sudo chown -R ec2-user:ec2-user /home/ec2-user/JAVA-3-tier-UMS-Local
+sudo chown -R ec2-user:ec2-user /app/JAVA-3-tier-UMS-Local
 ```
 Switch branch
 
@@ -51,9 +56,9 @@ Note ==> we already setup the Reverse Proxy using Nginx alredy setup "nginx.conf
 ### Setup "nginx.conf" for reverse Proxy to backend, we already have "nginx.conf" file 
 
 ```
-cd /home/ec2-user/JAVA-3-tier-UMS-Local/frontend
+cd /app/JAVA-3-tier-UMS-Local/frontend
 sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
-sudo mv /home/ec2-user/JAVA-3-tier-UMS-Local/frontend/nginx.conf /etc/nginx/
+sudo mv /app/JAVA-3-tier-UMS-Local/frontend/nginx.conf /etc/nginx/
 ```
 Edit your the Backend IP Address in nginx.conf
 ```
