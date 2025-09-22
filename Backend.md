@@ -70,8 +70,19 @@ Step:2 ==> Execute your "init.sql" script for your Application DB setup
 ```
 PGPASSWORD="Admin@123" psql -h <DB-Private-IP> -U dbadmin -d postgres -f initdb.sql
 ```
-
-Create the Package
+## Run only Unit Test 
+```
+mvn test
+```
+## Run only Integration Test 
+```
+mvn verify
+```
+## Run Both Unit and  Integration Test 
+```
+mvn clean verify
+```
+# Create the Package
 ```
 mvn clean package
 ```
