@@ -52,6 +52,7 @@ Switch branch
 
 ```
 sudo git checkout 03-Local-setup-Unit_Test-Local-V1
+sudo chown -R $USER:$USER /app/JAVA-3-tier-UMS-Local
 ```
 # Backend Setup
 ```
