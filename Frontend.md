@@ -81,10 +81,34 @@ Install Dependencies
 ```
 npm install
 ```
+#### We alredy write some test scripts in "tests" folder below command will execute these test cases
 Run the Test cases
 ```
 npm test
 ```
+when you run npm test, Jest will create a reports folder at the root of your project, and inside it, a file named jest-report.xml.
+##### Good to Know
+We already edited the Package.json do dont do any cjanges its only for Knowledge
+To print the test case reports we need to edit the package.json file
+```
+we need these dependency 'jest-junit' for generate Reports
+npm install --save-dev jest-junit
+
+update package.json, generate reports with which name
+
+"scripts": {
+  "test": "jest"
+},
+"jest": {
+  "testEnvironment": "jsdom",
+  "reporters": [
+    "default",
+    ["jest-junit", { "outputDirectory": "reports", "outputName": "jest-report.xml" }]
+  ]
+}
+
+```
+
 Build the Frontend 
 ```
 npm run build
