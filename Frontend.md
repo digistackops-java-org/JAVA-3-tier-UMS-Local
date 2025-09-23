@@ -87,7 +87,7 @@ Run the Test cases
 npm test
 ```
 when you run npm test, Jest will create a reports folder at the root of your project, and inside it, a file named jest-report.xml.
-##### Good to Know
+## Good to Know
 We already edited the Package.json do dont do any cjanges its only for Knowledge
 To print the test case reports we need to edit the package.json file
 ```
