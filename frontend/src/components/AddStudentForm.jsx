@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import api from '../api';
-import { theme } from '../styles/theme.js'; // Import the theme
+import { theme } from '../styles/theme.js';
 
 const initialForm = { name: '', email: '', course: '', amount: '', feesStatus: 'Paid' };
 
@@ -76,12 +76,57 @@ export default function AddStudentForm({ onDone }) {
 
   return (
     <form onSubmit={onSubmit} style={formContainerStyle}>
-      <label>Name<input name="name" value={form.name} onChange={onChange} required style={inputStyle} /></label>
-      <label>Email<input name="email" type="email" value={form.email} onChange={onChange} required style={inputStyle} /></label>
-      <label>Course<input name="course" value={form.course} onChange={onChange} required style={inputStyle} /></label>
-      <label>Amount<input name="amount" type="number" step="0.01" value={form.amount} onChange={onChange} required style={inputStyle} /></label>
-      <label>Fees Status
-        <select name="feesStatus" value={form.feesStatus} onChange={onChange} style={inputStyle}>
+      <label>
+        Name
+        <input
+          name="name"
+          value={form.name}
+          onChange={onChange}
+          required
+          style={inputStyle}
+        />
+      </label>
+      <label>
+        Email
+        <input
+          name="email"
+          type="email"
+          value={form.email}
+          onChange={onChange}
+          required
+          style={inputStyle}
+        />
+      </label>
+      <label>
+        Course
+        <input
+          name="course"
+          value={form.course}
+          onChange={onChange}
+          required
+          style={inputStyle}
+        />
+      </label>
+      <label>
+        Amount
+        <input
+          name="amount"
+          type="number"
+          step="0.01"
+          value={form.amount}
+          onChange={onChange}
+          required
+          style={inputStyle}
+        />
+      </label>
+      <label>
+        Fees Status
+        <select
+          name="feesStatus"
+          value={form.feesStatus}
+          onChange={onChange}
+          style={inputStyle}
+        >
           <option>Paid</option>
           <option>Unpaid</option>
           <option>Half-paid</option>
@@ -90,8 +135,18 @@ export default function AddStudentForm({ onDone }) {
       <button type="submit" disabled={loading} style={submitButtonStyle}>
         {loading ? 'Saving...' : 'Save'}
       </button>
-      {error && <div style={messageStyle(theme.colors.error)}>{error}</div>}
-      {success && <div style={messageStyle(theme.colors.success)}>{success}</div>}
+
+      {/* Accessible messages */}
+      {error && (
+        <div role="alert" style={messageStyle(theme.colors.error)}>
+          {error}
+        </div>
+      )}
+      {success && (
+        <div role="status" style={messageStyle(theme.colors.success)}>
+          {success}
+        </div>
+      )}
     </form>
   );
 }
