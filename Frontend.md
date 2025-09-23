@@ -71,9 +71,19 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 ### Frontend Setup
+
+Change Directory to your Frontend
+```
+cd frontend
+```
+
 Install Dependencies
 ```
 npm install
+```
+Run the Test cases
+```
+npm test
 ```
 Build the Frontend 
 ```
