@@ -1,12 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import StudentsList from '../StudentsList';
-import api from '../api';
+import StudentsList from '../src/components/StudentsList';
+import api from '../src/api';
 
 // Mock the API module
-jest.mock('../api');
-
+jest.mock('../src/api');
 const mockStudents = [
   { id: 1, name: 'Alice', email: 'alice@example.com', course: 'Math', amount: 1200, feesStatus: 'Paid' },
   { id: 2, name: 'Bob', email: 'bob@example.com', course: 'Physics', amount: 800, feesStatus: 'Unpaid' },
