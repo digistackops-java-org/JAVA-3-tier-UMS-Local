@@ -1,17 +1,16 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import AddStudentForm from '../AddStudentForm';
-import api from '../api';
+import AddStudentForm from '../src/components/AddStudentForm';
+import api from '../src/api';
 
 // Mock the API module
-jest.mock('../api');
+jest.mock('../src/api');
 
 describe('AddStudentForm', () => {
   const onDoneMock = jest.fn();
 
   beforeEach(() => {
-    // Clear all mocks before each test
     jest.clearAllMocks();
   });
 
@@ -33,46 +32,50 @@ describe('AddStudentForm', () => {
   });
 
   it('calls api.post and onDone with correct data on successful submission', async () => {
-    // Mock a successful API response
     api.post.mockResolvedValueOnce({ data: {} });
 
     render(<AddStudentForm onDone={onDoneMock} />);
 
-    // Fill out the form
+    // Fill out all required fields
     fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: 'John Doe' } });
     fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'john@example.com' } });
     fireEvent.change(screen.getByLabelText(/Course/i), { target: { value: 'Computer Science' } });
     fireEvent.change(screen.getByLabelText(/Amount/i), { target: { value: '1500' } });
     fireEvent.change(screen.getByLabelText(/Fees Status/i), { target: { value: 'Paid' } });
 
-    // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Save/i }));
 
-    // Wait for the asynchronous actions to complete
-    await waitFor(() => {
-      expect(api.post).toHaveBeenCalledTimes(1);
-      expect(api.post).toHaveBeenCalledWith('/students', {
-        name: 'John Doe',
-        email: 'john@example.com',
-        course: 'Computer Science',
-        amount: 1500, // Ensure amount is converted to a number
-        feesStatus: 'Paid',
-      });
-      expect(onDoneMock).toHaveBeenCalledTimes(1);
-      expect(screen.getByText(/Student added successfully!/i)).toBeInTheDocument();
+    // Wait for success message
+    await screen.findByText(/Student added successfully!/i);
+
+    expect(api.post).toHaveBeenCalledTimes(1);
+    expect(api.post).toHaveBeenCalledWith('/students', {
+      name: 'John Doe',
+      email: 'john@example.com',
+      course: 'Computer Science',
+      amount: 1500,
+      feesStatus: 'Paid',
     });
+    expect(onDoneMock).toHaveBeenCalledTimes(1);
   });
 
   it('displays an error message on API failure', async () => {
     const errorMessage = 'Network Error';
-    api.post.mockRejectedValueOnce({ response: { data: { message: errorMessage } } });
+    api.post.mockRejectedValueOnce(new Error(errorMessage));
 
     render(<AddStudentForm />);
+
+    // Fill all required fields
     fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: 'Test' } });
+    fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'test@example.com' } });
+    fireEvent.change(screen.getByLabelText(/Course/i), { target: { value: 'Math' } });
+    fireEvent.change(screen.getByLabelText(/Amount/i), { target: { value: '1000' } });
+    fireEvent.change(screen.getByLabelText(/Fees Status/i), { target: { value: 'Paid' } });
+
     fireEvent.click(screen.getByRole('button', { name: /Save/i }));
 
-    await waitFor(() => {
-      expect(screen.getByText(errorMessage)).toBeInTheDocument();
-    });
+    // Wait for error alert to appear
+    const alert = await screen.findByRole('alert');
+    expect(alert).toHaveTextContent(errorMessage);
   });
 });
