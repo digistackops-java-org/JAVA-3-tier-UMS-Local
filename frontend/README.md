@@ -1,10 +1,11 @@
 1. Setup the test environment
-
+```
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom @babel/preset-env @babel/preset-react babel-jest
-
+```
+```
 npm install --save-dev jest-environment-jsdom
-
-
+```
+```
 {
   "name": "student-frontend",
   "private": true,
@@ -31,7 +32,7 @@ npm install --save-dev jest-environment-jsdom
     "vite": "^5.4.0"
   }
 }
-
+```
 
 
 
@@ -42,7 +43,7 @@ npm install --save-dev jest-environment-jsdom
 2. You will also need to configure Babel to transpile JSX for Jest.
 		
 		Create a babel.config.cjs file at the root of your project:
-
+```
 // babel.config.js
 module.exports = {
   presets: [
@@ -51,18 +52,21 @@ module.exports = {
   ],
 };
 
-
+```
+```
 npm test
+```
 
 
+## for report publish
 
-for report publisg
-=====================
-
+```
 npm install --save-dev jest-junit
+```
 
 update package.json
 
+```
 "scripts": {
   "test": "jest"
 },
@@ -73,28 +77,29 @@ update package.json
     ["jest-junit", { "outputDirectory": "reports", "outputName": "jest-report.xml" }]
   ]
 }
+```
 
 
-
-
+```
 npm test
-
+```
 
 
 when you run npm test, Jest will create a reports folder at the root of your project, and inside it, a file named jest-report.xml.
 
 
 
-Jenkins
-========
+# Jenkins pipeline
+
 
 for reports 
 
+```
 npm install --save-dev jest-junit
-
+```
 
 update package.json
-
+```
 "scripts": {
   "test": "jest --ci --reporters=default --reporters=jest-junit"
 },
@@ -103,10 +108,10 @@ update package.json
   "outputDirectory": "reports",
   "outputName": "jest-report.xml"
 }
+```
 
 
-
-
+```
 pipeline {
     agent any
 
@@ -146,3 +151,4 @@ pipeline {
         }
     }
 }
+```
