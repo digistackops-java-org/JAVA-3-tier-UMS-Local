@@ -1,6 +1,5 @@
-## Launch EC2 "t2.micro" Instance and In Sg, Open port "5432" for postgresql
 # DB Tier
-
+## Launch EC2 "t2.micro" Instance and In Sg, Open port "5432" for postgresql
 ## Install postgressql  DB
 ```
 sudo dnf update -y
